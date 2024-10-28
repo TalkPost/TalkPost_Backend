@@ -1,17 +1,20 @@
-package com.kjo.talkpost.entity;
+package com.kjo.talkpost.member.entity;
 
 import jakarta.persistence.*;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.kjo.talkpost.entity.BaseEntity;
+import com.kjo.talkpost.entity.SocialType;
+import com.kjo.talkpost.member.entity.valid.Email;
+import com.kjo.talkpost.member.entity.valid.Password;
+
+import lombok.*;
 
 @Entity
 @Getter
-@Table(name = "post")
+@Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Member extends BaseEntity {
 
   @Id
@@ -20,12 +23,12 @@ public class Member extends BaseEntity {
   private Long memberId;
 
   @Column(name = "email", length = 40, nullable = false)
-  private String email;
+  private Email email;
 
-  @Column(name = "password", length = 255, nullable = false)
-  private String password;
+  @Column(name = "password", nullable = false)
+  private Password password;
 
-  @Column(name = "nickname", length = 10, nullable = false)
+  @Column(name = "nickname", length = 15, nullable = false)
   private String nickname;
 
   @Enumerated(EnumType.STRING)

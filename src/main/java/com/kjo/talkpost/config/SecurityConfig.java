@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-  private final String[] allowUrls = {"/api/test/**"};
+  private final String[] allowUrls = {"/api/test/**", "/api/v1/members/signup"};
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer() {
