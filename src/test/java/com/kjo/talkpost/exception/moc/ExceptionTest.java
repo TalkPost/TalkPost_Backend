@@ -1,4 +1,4 @@
-package com.kjo.talkpost.exception;
+package com.kjo.talkpost.exception.moc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
