@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.kjo.talkpost.member.entity.Member;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +22,7 @@ public class Post extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_id", nullable = false)
+  @Column(name = "post_id", nullable = false)
   private Long postId;
 
   @Column(name = "title", length = 50, nullable = false)
