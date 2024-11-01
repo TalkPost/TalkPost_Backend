@@ -33,4 +33,8 @@ public class Password {
     }
     return new Password(encoder.encode(inputPassword));
   }
+
+  public boolean isSamePassword(String inputPassword, BCryptPasswordEncoder encoder) {
+    return encoder.matches(inputPassword, encryptedPassword);
+  }
 }

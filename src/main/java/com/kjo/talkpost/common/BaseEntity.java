@@ -1,4 +1,4 @@
-package com.kjo.talkpost.entity;
+package com.kjo.talkpost.common;
 
 import java.time.LocalDateTime;
 

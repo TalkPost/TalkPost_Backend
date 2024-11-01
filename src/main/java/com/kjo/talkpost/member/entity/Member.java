@@ -2,8 +2,7 @@ package com.kjo.talkpost.member.entity;
 
 import jakarta.persistence.*;
 
-import com.kjo.talkpost.entity.BaseEntity;
-import com.kjo.talkpost.entity.SocialType;
+import com.kjo.talkpost.common.BaseEntity;
 import com.kjo.talkpost.member.entity.valid.Email;
 import com.kjo.talkpost.member.entity.valid.Password;
 
@@ -22,9 +21,11 @@ public class Member extends BaseEntity {
   @Column(name = "member_id", nullable = false)
   private Long memberId;
 
+  @Embedded
   @Column(name = "email", length = 40, nullable = false)
   private Email email;
 
+  @Embedded
   @Column(name = "password", nullable = false)
   private Password password;
 
