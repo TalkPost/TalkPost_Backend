@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.kjo.talkpost.common.BaseEntity;
 import com.kjo.talkpost.member.entity.Member;
 
 import lombok.AccessLevel;

@@ -12,4 +12,15 @@ public class MemberRequestDto {
     String password;
     String nickname;
   }
+
+  @Getter
+  public static class LoginRequest {
+    String email;
+    String password;
+  }
+
+  @Getter
+  public static class ReissueRequest {
+    String refreshToken;
+  }
 }
