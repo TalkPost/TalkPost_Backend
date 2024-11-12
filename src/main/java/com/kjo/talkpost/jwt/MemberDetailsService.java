@@ -1,5 +1,6 @@
 package com.kjo.talkpost.jwt;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,5 +29,11 @@ public class MemberDetailsService implements UserDetailsService {
             .orElseThrow(() -> new GlobalException(ErrorCode404.MEMBER_NOT_FOUND));
 
     return new MemberDetails(member);
+  }
+
+  public static Member getCurrentMember() {
+    MemberDetails memberDetails =
+        (MemberDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    return memberDetails.getMember();
   }
 }

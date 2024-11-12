@@ -1,4 +1,4 @@
-package com.kjo.talkpost.entity;
+package com.kjo.talkpost.post.entity;
 
 import java.time.LocalDateTime;
 
@@ -8,17 +8,16 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import com.kjo.talkpost.common.BaseEntity;
 import com.kjo.talkpost.member.entity.Member;
+import com.kjo.talkpost.post.dto.PostRequestDto.*;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
 @Table(name = "post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Post extends BaseEntity {
 
   @Id
@@ -33,11 +32,16 @@ public class Post extends BaseEntity {
   private String postContent;
 
   @Column(name = "post_like", nullable = false)
-  private Long postLike = 0L;
+  private Long postLike;
 
   @LastModifiedDate private LocalDateTime updateAt;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id", nullable = false)
   private Member member;
+
+  public void update(UpdatePostRequest req) {
+    this.title = req.getTitle();
+    this.postContent = req.getPostContent();
+  }
 }

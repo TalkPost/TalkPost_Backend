@@ -9,9 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.kjo.talkpost.member.entity.Member;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Getter
 public class MemberDetails implements UserDetails {
 
   private final Member member;
