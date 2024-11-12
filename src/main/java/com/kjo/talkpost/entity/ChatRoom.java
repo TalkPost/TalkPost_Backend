@@ -3,6 +3,7 @@ package com.kjo.talkpost.entity;
 import jakarta.persistence.*;
 
 import com.kjo.talkpost.common.BaseEntity;
+import com.kjo.talkpost.post.entity.Post;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
