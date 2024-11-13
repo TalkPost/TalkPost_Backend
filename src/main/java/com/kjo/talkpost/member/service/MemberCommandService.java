@@ -36,7 +36,7 @@ public class MemberCommandService {
   private Long refreshTokenValidityMilliseconds;
 
   public Member signUp(SignUpRequest req) {
-    validMemberExists(Email.validateEmail(req.getEmail()));
+    memberQueryService.isMemberExist(Email.validateEmail(req.getEmail()));
     return memberRepository.save(MemberConverter.toMember(req));
   }
 
@@ -77,11 +77,5 @@ public class MemberCommandService {
 
     return MemberConverter.toReissueTokenResponse(
         member.getMemberId(), newAccessToken, newRefreshToken);
-  }
-
-  private void validMemberExists(Email email) {
-    if (memberQueryService.isMemberExist(email)) {
-      throw new GlobalException(ErrorCode400.MEMBER_ALREADY_EXISTS);
-    }
   }
 }

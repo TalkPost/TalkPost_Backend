@@ -31,7 +31,9 @@ public class MemberQueryService {
         .orElseThrow(() -> new GlobalException(ErrorCode404.MEMBER_NOT_FOUND));
   }
 
-  public boolean isMemberExist(Email email) {
-    return memberRepository.findByEmail(email).isPresent();
+  public void isMemberExist(Email email) {
+    if (memberRepository.findByEmail(email).isPresent()) {
+      throw new GlobalException(ErrorCode404.MEMBER_NOT_FOUND);
+    }
   }
 }
