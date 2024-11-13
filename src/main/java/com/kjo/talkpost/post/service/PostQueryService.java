@@ -2,9 +2,8 @@ package com.kjo.talkpost.post.service;
 
 import java.util.List;
 
-import jakarta.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kjo.talkpost.exception.GlobalException;
 import com.kjo.talkpost.exception.errorCode.ErrorCode404;
@@ -15,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class PostQueryService {
 
   private final PostRepository postRepository;
