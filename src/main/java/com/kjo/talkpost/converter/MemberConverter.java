@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.kjo.talkpost.member.dto.MemberRequestDto.*;
 import com.kjo.talkpost.member.dto.MemberResponseDto.*;
 import com.kjo.talkpost.member.entity.Member;
-import com.kjo.talkpost.member.entity.SocialType;
+import com.kjo.talkpost.member.entity.enums.SocialType;
 import com.kjo.talkpost.member.entity.valid.Email;
 import com.kjo.talkpost.member.entity.valid.Password;
 

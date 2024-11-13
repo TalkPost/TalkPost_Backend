@@ -1,4 +1,4 @@
-package com.kjo.talkpost.member.entity;
+package com.kjo.talkpost.member.entity.enums;
 
 public enum SocialType {
   EMAIL,

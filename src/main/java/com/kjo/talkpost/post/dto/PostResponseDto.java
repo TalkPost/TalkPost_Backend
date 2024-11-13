@@ -21,4 +21,15 @@ public class PostResponseDto {
     String title;
     String content;
   }
+
+  @Getter
+  @Builder
+  @NoArgsConstructor(access = AccessLevel.PROTECTED)
+  @AllArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class GetPostResponse {
+    Long postId;
+    String title;
+    String content;
+    String nickname;
+  }
 }

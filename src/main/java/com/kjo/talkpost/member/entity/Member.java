@@ -3,6 +3,7 @@ package com.kjo.talkpost.member.entity;
 import jakarta.persistence.*;
 
 import com.kjo.talkpost.common.BaseEntity;
+import com.kjo.talkpost.member.entity.enums.SocialType;
 import com.kjo.talkpost.member.entity.valid.Email;
 import com.kjo.talkpost.member.entity.valid.Password;
 
