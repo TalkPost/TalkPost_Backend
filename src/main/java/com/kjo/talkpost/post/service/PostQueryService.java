@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.kjo.talkpost.exception.GlobalException;
 import com.kjo.talkpost.exception.errorCode.ErrorCode404;
 import com.kjo.talkpost.jwt.MemberDetailsService;
-import com.kjo.talkpost.post.dto.PostResponseDto.*;
 import com.kjo.talkpost.post.entity.Post;
 import com.kjo.talkpost.post.repository.PostRepository;
 
