@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kjo.talkpost.exception.GlobalException;
 import com.kjo.talkpost.exception.errorCode.ErrorCode404;
-import com.kjo.talkpost.jwt.MemberDetailsService;
 import com.kjo.talkpost.post.entity.Post;
 import com.kjo.talkpost.post.repository.PostRepository;
 
@@ -31,8 +30,8 @@ public class PostQueryService {
     return validPostExist(postRepository.findAll());
   }
 
-  public List<Post> getAllByMember() {
-    return validPostExist(postRepository.findAllByMember(MemberDetailsService.getCurrentMember()));
+  public List<Post> getAllByMemberId(Long memberId) {
+    return validPostExist(postRepository.findAllByMember_MemberId(memberId));
   }
 
   private List<Post> validPostExist(List<Post> posts) {

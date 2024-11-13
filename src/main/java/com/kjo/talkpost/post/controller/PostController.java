@@ -59,10 +59,11 @@ public class PostController {
   @ApiResponses({
     @ApiResponse(responseCode = "201", description = "성공"),
   })
-  @GetMapping("/member")
-  public GlobalResponse<List<GetPostResponse>> getAllPostByMember() {
+  @GetMapping("/member/{memberId}")
+  public GlobalResponse<List<GetPostResponse>> getAllPostByCurrentMember(
+      @PathVariable Long memberId) {
     return GlobalResponse.onSuccess(
-        PostConverter.toGetAllPostResponse(postQueryService.getAllByMember()));
+        PostConverter.toGetAllPostResponse(postQueryService.getAllByMemberId(memberId)));
   }
 
   @Operation(summary = "글 수정 API", description = "글 수정 API 입니다.")
