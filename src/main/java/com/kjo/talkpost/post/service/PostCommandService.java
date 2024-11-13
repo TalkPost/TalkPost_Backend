@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.kjo.talkpost.converter.PostConverter;
 import com.kjo.talkpost.exception.GlobalException;
 import com.kjo.talkpost.exception.errorCode.ErrorCode400;
-import com.kjo.talkpost.exception.errorCode.ErrorCode404;
 import com.kjo.talkpost.jwt.MemberDetailsService;
 import com.kjo.talkpost.post.dto.PostRequestDto.*;
 import com.kjo.talkpost.post.entity.Post;
@@ -21,32 +20,24 @@ import lombok.RequiredArgsConstructor;
 public class PostCommandService {
 
   private final PostRepository postRepository;
+  private final PostQueryService postQueryService;
 
-  public Post create(CreatePostRequest req) {
+  public Post reg(CreatePostRequest req) {
     validatePost(req.getTitle(), req.getPostContent());
+
     return postRepository.save(PostConverter.toPost(req, MemberDetailsService.getCurrentMember()));
   }
 
   public Post update(Long postId, UpdatePostRequest req) {
     validatePost(req.getTitle(), req.getPostContent());
-
-    Post post =
-        postRepository
-            .findById(postId)
-            .orElseThrow(() -> new GlobalException(ErrorCode404.POST_NOT_FOUND));
-
+    Post post = postQueryService.get(postId);
     post.update(req);
 
     return post;
   }
 
   public void delete(Long postId) {
-    Post post =
-        postRepository
-            .findById(postId)
-            .orElseThrow(() -> new GlobalException(ErrorCode404.POST_NOT_FOUND));
-
-    postRepository.delete(post);
+    postRepository.delete(postQueryService.get(postId));
   }
 
   private void validatePost(String title, String content) {

@@ -1,6 +1,5 @@
 package com.kjo.talkpost.member.service;
 
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import com.kjo.talkpost.converter.MemberConverter;
 import com.kjo.talkpost.exception.GlobalException;
 import com.kjo.talkpost.exception.errorCode.ErrorCode400;
 import com.kjo.talkpost.exception.errorCode.ErrorCode401;
-import com.kjo.talkpost.exception.errorCode.ErrorCode404;
 import com.kjo.talkpost.jwt.JwtProvider;
 import com.kjo.talkpost.member.dto.MemberRequestDto.*;
 import com.kjo.talkpost.member.dto.MemberResponseDto.*;
@@ -32,25 +30,18 @@ public class MemberCommandService {
   private final BCryptPasswordEncoder encoder;
   private final JwtProvider jwtProvider;
   private final RedisTemplate<String, String> redisTemplate;
+  private final MemberQueryService memberQueryService;
 
   @Value("${jwt.refresh-token-validity}")
   private Long refreshTokenValidityMilliseconds;
 
   public Member signUp(SignUpRequest req) {
-    Optional<Member> member = memberRepository.findByEmail(Email.validateEmail(req.getEmail()));
-
-    if (member.isPresent()) {
-      throw new GlobalException(ErrorCode400.MEMBER_ALREADY_EXISTS);
-    }
-
+    memberQueryService.isMemberExist(Email.validateEmail(req.getEmail()));
     return memberRepository.save(MemberConverter.toMember(req));
   }
 
   public TokenResponse login(LoginRequest req) {
-    Member member =
-        memberRepository
-            .findByEmail(Email.validateEmail(req.getEmail()))
-            .orElseThrow(() -> new GlobalException(ErrorCode404.MEMBER_NOT_FOUND));
+    Member member = memberQueryService.getMemberByEmail(Email.validateEmail(req.getEmail()));
 
     if (!(member.getPassword().isSamePassword(req.getPassword(), encoder))) {
       throw new GlobalException(ErrorCode400.PASSWORD_MISMATCH);
@@ -71,10 +62,7 @@ public class MemberCommandService {
       throw new GlobalException(ErrorCode401.INVALID_TOKEN);
     }
 
-    Member member =
-        memberRepository
-            .findById(memberId)
-            .orElseThrow(() -> new GlobalException(ErrorCode404.MEMBER_NOT_FOUND));
+    Member member = memberQueryService.getMemberById(memberId);
 
     String newAccessToken = jwtProvider.generateAccessToken(member.getMemberId());
     String newRefreshToken = jwtProvider.generateRefreshToken(member.getMemberId());
@@ -87,6 +75,7 @@ public class MemberCommandService {
             refreshTokenValidityMilliseconds,
             TimeUnit.MILLISECONDS);
 
-    return MemberConverter.toReissueTokenResponse(memberId, newAccessToken, newRefreshToken);
+    return MemberConverter.toReissueTokenResponse(
+        member.getMemberId(), newAccessToken, newRefreshToken);
   }
 }
