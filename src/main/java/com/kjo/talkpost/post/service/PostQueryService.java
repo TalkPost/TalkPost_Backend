@@ -26,18 +26,17 @@ public class PostQueryService {
   }
 
   public List<Post> getAll() {
-    return validPostExist(postRepository.findAll());
+    return validatePostsExist(postRepository.findAll());
   }
 
   public List<Post> getAllByMemberId(Long memberId) {
-    return validPostExist(postRepository.findAllByMember_MemberId(memberId));
+    return validatePostsExist(postRepository.findAllByMember_MemberId(memberId));
   }
 
-  private List<Post> validPostExist(List<Post> posts) {
+  private List<Post> validatePostsExist(List<Post> posts) {
     if (posts == null || posts.isEmpty()) {
       throw new GlobalException(ErrorCode404.POST_NOT_FOUND);
     }
-
     return posts;
   }
 }

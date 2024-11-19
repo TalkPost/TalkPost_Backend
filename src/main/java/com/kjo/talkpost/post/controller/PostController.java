@@ -43,7 +43,7 @@ public class PostController {
   })
   @GetMapping
   public GlobalResponse<List<GetPostResponse>> getAllPost() {
-    return GlobalResponse.onSuccess(PostConverter.toGetAllPostResponse(postQueryService.getAll()));
+    return GlobalResponse.onSuccess(PostConverter.toGetPostListResponse(postQueryService.getAll()));
   }
 
   @Operation(summary = "글 상세 조회 API", description = "글 상세 조회 API 입니다.")
@@ -59,11 +59,11 @@ public class PostController {
   @ApiResponses({
     @ApiResponse(responseCode = "201", description = "성공"),
   })
-  @GetMapping("/member/{memberId}")
+  @GetMapping("/members/{memberId}")
   public GlobalResponse<List<GetPostResponse>> getAllPostByCurrentMember(
       @PathVariable Long memberId) {
     return GlobalResponse.onSuccess(
-        PostConverter.toGetAllPostResponse(postQueryService.getAllByMemberId(memberId)));
+        PostConverter.toGetPostListResponse(postQueryService.getAllByMemberId(memberId)));
   }
 
   @Operation(summary = "글 수정 API", description = "글 수정 API 입니다.")

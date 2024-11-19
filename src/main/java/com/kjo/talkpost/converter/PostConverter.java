@@ -36,7 +36,7 @@ public class PostConverter {
         .build();
   }
 
-  public static List<GetPostResponse> toGetAllPostResponse(List<Post> posts) {
+  public static List<GetPostResponse> toGetPostListResponse(List<Post> posts) {
     return posts.stream()
         .map(
             post ->

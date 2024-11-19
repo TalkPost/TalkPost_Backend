@@ -4,10 +4,10 @@ import jakarta.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.kjo.talkpost.common.MemberUtil;
 import com.kjo.talkpost.converter.PostConverter;
 import com.kjo.talkpost.exception.GlobalException;
 import com.kjo.talkpost.exception.errorCode.ErrorCode400;
-import com.kjo.talkpost.jwt.MemberDetailsService;
 import com.kjo.talkpost.post.dto.PostRequestDto.*;
 import com.kjo.talkpost.post.entity.Post;
 import com.kjo.talkpost.post.repository.PostRepository;
@@ -25,12 +25,13 @@ public class PostCommandService {
   public Post reg(CreatePostRequest req) {
     validatePost(req.getTitle(), req.getPostContent());
 
-    return postRepository.save(PostConverter.toPost(req, MemberDetailsService.getCurrentMember()));
+    return postRepository.save(PostConverter.toPost(req, MemberUtil.getCurrentMember()));
   }
 
   public Post update(Long postId, UpdatePostRequest req) {
     validatePost(req.getTitle(), req.getPostContent());
     Post post = postQueryService.get(postId);
+
     post.update(req);
 
     return post;

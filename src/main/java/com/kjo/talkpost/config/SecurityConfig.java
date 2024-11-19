@@ -47,28 +47,18 @@ public class SecurityConfig {
     http.formLogin(AbstractHttpConfigurer::disable)
         .httpBasic(AbstractHttpConfigurer::disable)
         .csrf(AbstractHttpConfigurer::disable)
-
-        // 헤더 설정
         .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
-
-        // 예외 처리 설정
         .exceptionHandling(
             configurer ->
                 configurer
                     .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                     .accessDeniedHandler(jwtAccessDeniedHandler))
-
-        // 세션 관리 설정
         .sessionManagement(
             sessionManagement ->
                 sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-
-        // 요청 권한 설정
         .authorizeHttpRequests(
             authorize ->
                 authorize.requestMatchers(allowUrls).permitAll().anyRequest().authenticated())
-
-        // 필터 추가
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(jwtAuthExceptionHandlingFilter, JwtRequestFilter.class);
 
