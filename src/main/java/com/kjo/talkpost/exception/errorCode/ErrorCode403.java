@@ -15,6 +15,6 @@ public enum ErrorCode403 implements ErrorCode {
 
   @Override
   public String getCode() {
-    return this.name();
+    return "403: " + this.name();
   }
 }

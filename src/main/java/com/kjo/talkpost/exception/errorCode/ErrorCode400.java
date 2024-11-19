@@ -22,6 +22,6 @@ public enum ErrorCode400 implements ErrorCode {
 
   @Override
   public String getCode() {
-    return this.name();
+    return "400: " + this.name();
   }
 }

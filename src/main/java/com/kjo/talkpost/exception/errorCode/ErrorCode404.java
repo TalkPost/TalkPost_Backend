@@ -16,6 +16,6 @@ public enum ErrorCode404 implements ErrorCode {
 
   @Override
   public String getCode() {
-    return this.name();
+    return "404: " + this.name();
   }
 }

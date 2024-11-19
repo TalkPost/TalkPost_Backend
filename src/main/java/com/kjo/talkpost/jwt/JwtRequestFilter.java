@@ -14,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.kjo.talkpost.exception.GlobalException;
+import com.kjo.talkpost.exception.errorCode.ErrorCode401;
+
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -46,7 +49,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
           throw new RuntimeException();
         }
       } else {
-        throw new RuntimeException();
+        throw new GlobalException(ErrorCode401.INVALID_TOKEN);
       }
     }
 

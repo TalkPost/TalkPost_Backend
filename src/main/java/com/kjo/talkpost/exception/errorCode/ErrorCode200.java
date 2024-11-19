@@ -17,6 +17,6 @@ public enum ErrorCode200 implements ErrorCode {
 
   @Override
   public String getCode() {
-    return this.name();
+    return "200: " + this.name();
   }
 }
